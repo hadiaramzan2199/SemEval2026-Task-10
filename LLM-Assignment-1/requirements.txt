@@ -1,0 +1,13 @@
+pandas
+numpy
+matplotlib
+seaborn
+datasets
+transformers
+sentencepiece
+spacy
+textblob
+langdetect
+nltk
+tqdm
+scikit-learn
