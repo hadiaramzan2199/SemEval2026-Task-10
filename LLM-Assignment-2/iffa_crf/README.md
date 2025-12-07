@@ -164,8 +164,7 @@ Contains:
 
 ### Plot
 
-[plots/baseline_crf_f1_per_label.png
-](https://github.com/hadiaramzan2199/SemEval2026-Task-10/blob/main/LLM-Assignment-2/iffa_crf/plots/baseline_crf_f1_per_label.png)
+[plots/baseline_crf_f1_per_label.png](https://github.com/hadiaramzan2199/SemEval2026-Task-10/blob/main/LLM-Assignment-2/iffa_crf/plots/baseline_crf_f1_per_label.png)
 
 ---
 
@@ -195,13 +194,13 @@ Contains:
 ```markdown
 ### Validation Performance
 
-| Metric | Score |
-|---|---|
-| Weighted F1 | 0.71 |
-| Macro F1 | 0.32 |
+| Metric      | Score |
+|-------------|-------|
+| Weighted F1 | 0.71  |
+| Macro F1    | 0.32  |
 ```
 
-### Per-label (example)
+### Per-label 
 
 | Label      | F1   |
 | ---------- | ---- |
