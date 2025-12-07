@@ -249,7 +249,9 @@ Add these in your report and README:
 - Lafferty et al., "Conditional Random Fields", ICML 2001
 - Devlin et al., "BERT: Pre-training of Deep Bidirectional Transformers"
 - Liu et al., "RoBERTa: A Robustly Optimized BERT Pretraining Approach"
-- SemEval 2026 Task 10 Official Website
+- SemEval-2026 Task 10: Detection and Analysis of Conspiracy Theories.
+Proceedings of the 15th International Workshop on Semantic Evaluation, 2026.
+- Taubert, F., Meyer-Hoeven, G., Schmid, P., Gerdes, P., \& Betsch, C. (2024). Conspiracy narratives and vaccine hesitancy: a scoping review of prevalence, impact, and interventions
 - sklearn-crfsuite documentation
 ```
 
@@ -258,9 +260,9 @@ Add these in your report and README:
 ## 12. Author
 
 ```markdown
-Student Name: __________
+Student Name: Iffa Kashif
 Model Responsibility: CRF Baseline
-Course: ML/NLP — SemEval 2026 Project
+Course: LLM — SemEval 2026 Project
 Date: Dec 2025
 ```
 
