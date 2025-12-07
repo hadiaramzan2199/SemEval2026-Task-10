@@ -165,8 +165,8 @@ Contains:
 ### Plot
 
 ```
-plots/baseline_crf_f1_per_label.png
-```
+[plots/baseline_crf_f1_per_label.png
+](https://github.com/hadiaramzan2199/SemEval2026-Task-10/blob/main/LLM-Assignment-2/iffa_crf/plots/baseline_crf_f1_per_label.png)```
 
 ---
 
