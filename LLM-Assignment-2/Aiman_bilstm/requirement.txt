@@ -1,0 +1,7 @@
+torch==2.2.0
+torchvision
+torchaudio
+transformers==4.35.0
+seqeval==1.2.2
+numpy==1.26.4
+matplotlib==3.7.1
