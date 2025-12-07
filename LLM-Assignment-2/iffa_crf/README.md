@@ -1,17 +1,27 @@
 # CRF Baseline — Subtask 1
 
-This is a baseline system using a Conditional Random Field (CRF) model to extract psycholinguistic markers:
+## Model
 
-- ACTOR
-- ACTION
-- EFFECT
-- EVIDENCE
-- VICTIM
+Conditional Random Field (CRF) for BIO sequence tagging.
 
-## Files
+Features:
+- token shape
+- prefixes/suffixes
+- digit/uppercase flags
+- prev/next token features
 
-- data_loader.py — load dataset
-- preprocess.py — BIO conversion + split
-- models/model_crf.py — features + CRF model
-- train.py — train model
-- evaluate.py — run inference
+## Run
+
+Train:
+bash
+python train.py --train_path ../data/train_rehydrated.jsonl
+markdown
+Evaluate:
+bash
+python evaluate.py --model_path results/baseline_crf.pkl
+markdown
+## Outputs
+
+- `results/*.pkl` — model
+- `plots/*.png` — F1 per label
+- `results/metrics.json` — numeric results
