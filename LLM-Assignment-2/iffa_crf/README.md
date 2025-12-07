@@ -191,14 +191,14 @@ Contains:
 
 ## 8. Results
 
-```markdown
+
 ### Validation Performance
 
 | Metric      | Score |
 |-------------|-------|
 | Weighted F1 | 0.71  |
 | Macro F1    | 0.32  |
-```
+
 
 ### Per-label 
 
