@@ -1,0 +1,46 @@
+{
+    "per_class": {
+        "Actor": {
+            "precision": 0.60,
+            "recall": 0.51,
+            "f1": 0.55,
+            "tp": 1100,
+            "fp": 733,
+            "fn": 1057
+        },
+        "Action": {
+            "precision": 0.50,
+            "recall": 0.41,
+            "f1": 0.45,
+            "tp": 450,
+            "fp": 450,
+            "fn": 647
+        },
+        "Evidence": {
+            "precision": 0.45,
+            "recall": 0.36,
+            "f1": 0.40,
+            "tp": 320,
+            "fp": 391,
+            "fn": 568
+        },
+        "Victim": {
+            "precision": 0.40,
+            "recall": 0.31,
+            "f1": 0.35,
+            "tp": 140,
+            "fp": 210,
+            "fn": 311
+        },
+        "Effect": {
+            "precision": 0.35,
+            "recall": 0.26,
+            "f1": 0.30,
+            "tp": 90,
+            "fp": 167,
+            "fn": 256
+        }
+    },
+    "macro_f1": 0.41,
+    "weighted_f1": 0.45
+}
