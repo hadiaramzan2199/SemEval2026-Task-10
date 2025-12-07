@@ -14,12 +14,16 @@ Features:
 
 Train:
 bash
+
 python train.py --train_path ../data/train_rehydrated.jsonl
-markdown
+
+
 Evaluate:
 bash
+
 python evaluate.py --model_path results/baseline_crf.pkl
-markdown
+
+
 ## Outputs
 
 - `results/*.pkl` — model
