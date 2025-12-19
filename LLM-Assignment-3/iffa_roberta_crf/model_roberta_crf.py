@@ -11,7 +11,8 @@ class RoBERTaCRF(nn.Module):
         self.classifier = nn.Linear(
             self.encoder.config.hidden_size, num_labels
         )
-        self.crf = CRF(num_labels, batch_first=True)
+        self.crf = CRF(num_labels)
+
 
     def forward(self, input_ids, attention_mask, labels=None):
         outputs = self.encoder(
