@@ -3,7 +3,8 @@
 import torch
 import torch.nn as nn
 from transformers import AutoModel
-from TorchCRF import CRF
+from torchcrf import CRF
+
 
 class RoBERTaCRF(nn.Module):
     def __init__(self, model_name, num_labels):
@@ -13,27 +14,32 @@ class RoBERTaCRF(nn.Module):
         self.classifier = nn.Linear(
             self.encoder.config.hidden_size, num_labels
         )
-        self.crf = CRF(num_labels)
-
+        self.crf = CRF(num_labels, batch_first=True)
 
     def forward(self, input_ids, attention_mask, labels=None):
         outputs = self.encoder(
             input_ids=input_ids,
             attention_mask=attention_mask
         )
+
         sequence_output = self.dropout(outputs.last_hidden_state)
         emissions = self.classifier(sequence_output)
 
+        mask = attention_mask.bool()
+
         if labels is not None:
+            # CRF cannot handle -100
+            labels = labels.clone()
+            labels[labels == -100] = 0
+
             loss = -self.crf(
                 emissions,
                 labels,
-                mask=attention_mask.bool(),
+                mask=mask,
                 reduction='mean'
             )
             return {"loss": loss}
+
         else:
-            predictions = self.crf.decode(
-                emissions, mask=attention_mask.bool()
-            )
+            predictions = self.crf.decode(emissions, mask=mask)
             return {"predictions": predictions}
