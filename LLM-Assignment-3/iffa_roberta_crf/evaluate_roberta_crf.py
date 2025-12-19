@@ -7,7 +7,7 @@ from sklearn.metrics import classification_report
 
 from data_loader import load_psycomark
 from preprocess import build_bio_corpus, train_val_split
-from model_roberta_crf import RoBERTaCRF
+from model_roberta_crf import RoBERTaCRFTagger
 
 
 LABELS = [
@@ -19,7 +19,6 @@ LABELS = [
     "B-VICTIM", "I-VICTIM"
 ]
 
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--train_path", type=str, required=True)
@@ -29,11 +28,8 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Device:", device)
 
-    model, max_len = RoBERTaCRF.load(args.model_path, device=device)
-    model.to(device)
-    model.eval()
-    tokenizer = model.tokenizer
-    print("Loaded:", args.model_path, "| max_length:", max_len)
+    model = RoBERTaCRFTagger.load(args.model_path, device=device).to(device)
+    print("Loaded:", args.model_path)
 
     df, _ = load_psycomark(args.train_path)
     corpus = build_bio_corpus(df)
@@ -41,52 +37,34 @@ def main():
 
     true_flat, pred_flat = [], []
 
+    model.eval()
     with torch.no_grad():
-        for s in val_c:
-            enc = tokenizer(
-                [s["tokens"]],
-                is_split_into_words=True,
-                padding=True,
-                truncation=True,
-                max_length=max_len,
-                return_tensors="pt"
-            )
-            input_ids = enc["input_ids"].to(device)
-            attn = enc["attention_mask"].to(device)
+        for sample in val_c:
+            input_ids, attn, labels, crf_mask, word_mask = model.encode_sentence(sample)
+            input_ids = input_ids.unsqueeze(0).to(device)
+            attn      = attn.unsqueeze(0).to(device)
+            labels    = labels.unsqueeze(0).to(device)
+            crf_mask  = crf_mask.unsqueeze(0).to(device)
+            word_mask = word_mask.unsqueeze(0).to(device)
 
-            # build valid_mask + gold labels aligned to first-subword
-            word_ids = enc.word_ids(batch_index=0)
-            valid_mask = torch.zeros_like(attn, dtype=torch.bool)
-            gold_ids = torch.full_like(input_ids, -100)
+            out = model(input_ids, attn, labels=None, crf_mask=crf_mask)
+            pred_ids = out["pred_paths"][0]  # includes CLS
 
-            prev = None
-            for j, w in enumerate(word_ids):
-                if w is None:
-                    continue
-                if w == prev:
-                    prev = w
-                    continue
-                valid_mask[0, j] = True
-                lab = s["labels"][w] if w < len(s["labels"]) else "O"
-                gold_ids[0, j] = LABELS.index(lab) if lab in LABELS else 0
-                prev = w
-
-            preds = model(input_ids, attn, labels=None, valid_mask=valid_mask)["predictions"][0]
-            pred_seq = [LABELS[k] for k in preds]
+            wm = word_mask[0].tolist()
 
             gold_seq = []
-            for j in range(valid_mask.size(1)):
-                if valid_mask[0, j]:
-                    gid = gold_ids[0, j].item()
-                    gold_seq.append(LABELS[gid] if gid >= 0 else "O")
+            for pos in range(1, len(wm)):
+                if wm[pos] == 1:
+                    gold_seq.append(LABELS[labels[0, pos].item()])
+
+            pred_seq = [LABELS[t] for t in pred_ids[1:1+len(gold_seq)]]
 
             m = min(len(gold_seq), len(pred_seq))
             true_flat.extend(gold_seq[:m])
             pred_flat.extend(pred_seq[:m])
 
-    print("\n===== RoBERTa + CRF Evaluation (token-level BIO) =====")
+    print("\n===== RoBERTa + CRF Evaluation =====")
     print(classification_report(true_flat, pred_flat, zero_division=0))
-
 
 if __name__ == "__main__":
     main()
