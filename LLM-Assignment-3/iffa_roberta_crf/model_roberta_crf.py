@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from transformers import AutoModel
-from torchcrf import CRF
+from TorchCRF import CRF
 
 class RoBERTaCRF(nn.Module):
     def __init__(self, model_name, num_labels):
