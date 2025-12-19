@@ -51,7 +51,10 @@ def encode(corpus):
     return torch.stack(input_ids), torch.stack(masks), torch.stack(labels)
 
 def main():
-    df, _ = load_psycomark("../data/train_rehydrated.jsonl")
+    df, _ = load_psycomark(
+    "/content/SemEval2026-Task-10/LLM-Assignment-2/data/train_rehydrated.jsonl"
+)
+
     corpus = build_bio_corpus(df)
     train_c, val_c = train_val_split(corpus)
 
