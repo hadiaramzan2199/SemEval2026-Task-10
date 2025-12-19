@@ -18,7 +18,11 @@ LABELS = [
 
 label2id = {l: i for i, l in enumerate(LABELS)}
 
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+tokenizer = AutoTokenizer.from_pretrained(
+    MODEL_NAME,
+    add_prefix_space=True
+)
+
 
 def encode(corpus):
     input_ids, masks, labels = [], [], []
