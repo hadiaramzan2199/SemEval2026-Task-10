@@ -128,6 +128,7 @@ Per-label F1 and learning curves are saved as **PDF** for report inclusion.
 ## Assignment Contribution
 
 **Member: Iffa Kashif**
+
 **Responsibility:** Core Architecture & CRF Integration
 
 * Implemented RoBERTa + CRF model
