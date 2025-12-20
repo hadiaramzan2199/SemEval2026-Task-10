@@ -1,4 +1,3 @@
-```markdown
 # RoBERTa + CRF for Psycholinguistic Marker Extraction
 
 **SemEval 2026 Task 10 — Subtask 1**  
@@ -145,8 +144,6 @@ Per-label F1 and learning curves are saved as **PDF** for report inclusion.
 * SemEval 2026 Task 10
 * HuggingFace Transformers
 * pytorch-crf
-
-```
 
 ---
 
