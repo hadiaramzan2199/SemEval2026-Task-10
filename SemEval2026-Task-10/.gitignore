@@ -1,0 +1,5 @@
+*.safetensors
+*.pth
+*.pt
+checkpoint-*
+.DS_Store
