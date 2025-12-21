@@ -1,0 +1,21 @@
+{
+  "real_predictions": {
+    "baseline_spans": 359,
+    "improved_spans": 359,
+    "spans_truncated": 5,
+    "max_length_reduction": 74,
+    "avg_length_reduction": 0.41225626740946986
+  },
+  "decoding_capabilities": {
+    "max_span_enforcement": true,
+    "overlap_resolution": true,
+    "nesting_prevention": true,
+    "priority_system": {
+      "ACTOR": 5,
+      "ACTION": 4,
+      "EFFECT": 3,
+      "EVIDENCE": 2,
+      "VICTIM": 1
+    }
+  }
+}
